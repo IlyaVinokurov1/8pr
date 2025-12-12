@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Weather_Vinokurov.Models;
 
 namespace Weather_Vinokurov.Classes
 {
@@ -11,22 +13,36 @@ namespace Weather_Vinokurov.Classes
     {
         public static string Url = "http://api.weather.yandex.ru/v2/forecast";
         public static string Key = "demo_yandex_weather_api_key_ca6d09349ba0";
-        public static async void Get(float lat, float lon)
+        public static async Task<DataResponse> Get(float lat, float lon)
         {
-            using(HttpClient Client = new HttpClient())
+            DataResponse DataResponse = null;
+
+            string url = $"{Url}?Lat={lat}&lon={lon}".Replace(",", ".");
+
+            using (HttpClient Client = new HttpClient())
             {
                 using (HttpRequestMessage Request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    $"{Url}?Lat = {lat}&lon={lon}"))
+                    HttpMethod.Get, url))
+
+
+
                 {
+
+
                     Request.Headers.Add("X-Yandex-Weather-Key", Key);
-                    using(var Response = await Client.SendAsync(Request))
+
+
+
+                    using (var Response = await Client.SendAsync(Request))
                     {
-                        string DataResponse = await Response.Content.ReadAsStringAsync();
+                        string ContentResponse = await Response.Content.ReadAsStringAsync();
+
+                        DataResponse = JsonConvert.DeserializeObject<DataResponse>(ContentResponse);   
                     }
                 }
                     
             }
+            return DataResponse;
         }
     }
 }
