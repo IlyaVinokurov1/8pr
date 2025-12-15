@@ -11,38 +11,32 @@ namespace Weather_Vinokurov.Classes
 {
     public class GetWeather
     {
-        public static string Url = "http://api.weather.yandex.ru/v2/forecast";
-        public static string Key = "demo_yandex_weather_api_key_ca6d09349ba0";
+        public static string Url = "https://api.weather.yandex.ru/v2/forecast";
+        public static string Key = "ec11b9dd-0f2d-4afd-8cae-ed8a50dc60b1";
+
+
         public static async Task<DataResponse> Get(float lat, float lon)
         {
             DataResponse DataResponse = null;
-
-            string url = $"{Url}?Lat={lat}&lon={lon}".Replace(",", ".");
+            string url = $"{Url}?lat={lat}&lon={lon}".Replace(",", ".");
 
             using (HttpClient Client = new HttpClient())
             {
                 using (HttpRequestMessage Request = new HttpRequestMessage(
-                    HttpMethod.Get, url))
-
-
-
+                    HttpMethod.Get,
+                    url))
                 {
-
-
                     Request.Headers.Add("X-Yandex-Weather-Key", Key);
-
-
 
                     using (var Response = await Client.SendAsync(Request))
                     {
                         string ContentResponse = await Response.Content.ReadAsStringAsync();
-
-                        DataResponse = JsonConvert.DeserializeObject<DataResponse>(ContentResponse);   
+                        DataResponse = JsonConvert.DeserializeObject<DataResponse>(ContentResponse);
                     }
+                    return DataResponse;
+
                 }
-                    
             }
-            return DataResponse;
         }
     }
 }

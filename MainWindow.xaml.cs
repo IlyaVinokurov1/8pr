@@ -1,57 +1,87 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
+﻿using System.Windows;
 using Weather_Vinokurov.Classes;
 using Weather_Vinokurov.Models;
 
 namespace Weather_Vinokurov
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        DataResponse responce;
+        DataResponse response;
+        private float currentLat = 58.009671f;
+        private float currentLon = 56.226184f;
+        private string currentCity = "Пермь";
+
         public MainWindow()
         {
-            InitializeComponent();
-
+            InitializeComponent();    
+            LoadWeatherForCity(currentCity);
         }
-        public async void Iint()
+
+        private async void GetWeatherByCity(object sender, RoutedEventArgs e)
+        {
+            string city = txtCity.Text.Trim();
+            if (!string.IsNullOrEmpty(city))
+            {
+                await LoadWeatherForCity(city);
+            }
+        }
+
+        public async Task LoadWeatherForCity(string city)
+        {
+            try
+            {
+                var coordinates = await Geocoder.GetCoordinates(city);
+                currentLat = coordinates.lat;
+                currentLon = coordinates.lon;
+                currentCity = city;
+                await LoadWeather(currentLat, currentLon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при получении координат: {ex.Message}");
+            }
+        }
+
+        public async Task LoadWeather(float lat, float lon)
         {
             parent.Children.Clear();
-            responce = await GetWeather.Get(58.009671f, 56.226184f);
-            foreach (Forecast forecast in responce.forecasts)
+            Days.Items.Clear();
+
+            response = await GetWeather.Get(lat, lon);
+
+            if (response?.forecasts != null)
             {
-                Days.Items.Add(forecast.date.ToString("dd.MM.yyyy"));
+                foreach (Forecast forecast in response.forecasts)
+                {
+                    Days.Items.Add(forecast.date.ToString("dd.MM.yyyy"));
+                }
+                Create(0);
             }
-            Create(0);
         }
+
         public void Create(int idForecast)
         {
-            foreach (Hour hour in responce.forecasts[idForecast].hours)
+            if (response?.forecasts == null || idForecast >= response.forecasts.Count)
+                return;
+
+            parent.Children.Clear();
+            foreach (Hour hour in response.forecasts[idForecast].hours)
             {
                 parent.Children.Add(new Elements.Item(hour));
             }
         }
 
-
         private void SelectDay(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Create(Days.SelectedIndex);
+            if (Days.SelectedIndex >= 0)
+            {
+                Create(Days.SelectedIndex);
+            }
         }
 
-        private void UpdateWeather(object sender, RoutedEventArgs e)
+        private async void UpdateWeather(object sender, RoutedEventArgs e)
         {
-            Iint();
+            await LoadWeather(currentLat, currentLon);
         }
     }
 }

@@ -5,16 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Weather_Vinokurov"
         mc:Ignorable="d"
-           Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800">
+        Title="Weather App" Height="450" Width="800" MinHeight="450" MinWidth="800">
     <Grid>
-        <ComboBox SelectionChanged="SelectDay"
-              Name="Days"
-        VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Margin="10"/>
-        <Button Content="Обновить"
-            Click="UpdateWeather" Margin="582,9,10,389"/>
-        <ScrollViewer Margin="10,37,10,10">
-            <StackPanel Name="parent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
+            <TextBox Name="txtCity" Width="200" 
+                     Text="Пермь" Margin="0,0,10,0"/>
+            <Button Content="Получить погоду" 
+                    Click="GetWeatherByCity" 
+                    Margin="0,0,10,0" Width="120"/>
+            <ComboBox SelectionChanged="SelectDay"
+                      Name="Days"
+                      Width="200" Margin="0,0,10,0"/>
+            <Button Content="Обновить"
+                    Click="UpdateWeather" Width="80"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" Margin="10">
+            <StackPanel Name="parent">
             </StackPanel>
         </ScrollViewer>
     </Grid>
