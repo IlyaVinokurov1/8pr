@@ -18,14 +18,14 @@ namespace Weather_Vinokurov
         {
             InitializeComponent();
             _cacheService = new CacheService();
-            LocationText.Text = currentCity;
+         
 
             _cleanupTimer = new DispatcherTimer();
             _cleanupTimer.Interval = TimeSpan.FromHours(6);
             _cleanupTimer.Tick += CleanupTimer_Tick;
             _cleanupTimer.Start();
 
-            InitializeApplication();
+            InitializeApplication(); 
         }
 
         private async void InitializeApplication()
@@ -33,7 +33,8 @@ namespace Weather_Vinokurov
             try
             {
                 await _cacheService.CleanupOldCacheAsync();
-                await LoadWeatherData();
+             
+                await _cacheService.ResetOldLogsAsync();
             }
             catch (Exception ex)
             {
