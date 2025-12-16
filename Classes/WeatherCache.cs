@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Weather_Vinokurov.Classes
 {
-    [Table("weather_cache")]
+    [Table("pogoda_kesh")]
     public class WeatherCache
     {
         [Key]
@@ -16,32 +16,32 @@ namespace Weather_Vinokurov.Classes
         public int Id { get; set; }
 
         [Required]
-        [Column("city")]
+        [Column("gorod")]
         [MaxLength(100)]
         public string City { get; set; }
 
         [Required]
-        [Column("latitude")]
+        [Column("shirota")]
         public float Latitude { get; set; }
 
         [Required]
-        [Column("longitude")]
+        [Column("dolgota")]
         public float Longitude { get; set; }
 
         [Required]
-        [Column("weather_json", TypeName = "LONGTEXT")]
+        [Column("pogoda_json", TypeName = "LONGTEXT")]
         public string WeatherJson { get; set; }
 
         [Required]
-        [Column("last_updated")]
+        [Column("poslednee_obnovlenie")]
         public DateTime LastUpdated { get; set; }
 
         [Required]
-        [Column("valid_until")]
+        [Column("deistvitelno_do")]
         public DateTime ValidUntil { get; set; }
     }
 
-    [Table("request_logs")]
+    [Table("logi_zaprosov")]
     public class RequestLog
     {
         [Key]
@@ -49,15 +49,15 @@ namespace Weather_Vinokurov.Classes
         public int Id { get; set; }
 
         [Required]
-        [Column("request_date")]
+        [Column("data_zaprosa")]
         public DateTime RequestDate { get; set; }
 
         [Required]
-        [Column("request_count")]
+        [Column("kolichestvo_zaprosov")]
         public int RequestCount { get; set; } = 0;
 
         [Required]
-        [Column("last_request_time")]
+        [Column("vremya_poslednego_zaprosa")]
         public DateTime LastRequestTime { get; set; }
     }
 }
