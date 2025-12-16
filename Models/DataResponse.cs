@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Weather_Vinokurov.Models
 {
-    public class DataResponse
+    public class DataResponce
     {
         public List<Forecast> forecasts { get; set; }
     }
-
     public class Forecast
     {
         public DateTime date { get; set; }
         public List<Hour> hours { get; set; }
-
     }
     public class Hour
     {
@@ -35,7 +33,7 @@ namespace Weather_Vinokurov.Models
                 case "partly-cloudy":
                     result = "малооблачно";
                     break;
-                case "cludy":
+                case "cloudy":
                     result = "облачно с прояснениями";
                     break;
                 case "overcast":
@@ -71,10 +69,10 @@ namespace Weather_Vinokurov.Models
                 case "thundershtorm":
                     result = "гроза";
                     break;
-                case "thundershtorm-with-rain":
+                case "thunderstorm-with-rain":
                     result = "дождь с грозой";
                     break;
-                case "thundershtorm-with-hail":
+                case "thunderstorm-with-hail":
                     result = "гроза с градом";
                     break;
             }
