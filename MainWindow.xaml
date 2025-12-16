@@ -24,10 +24,7 @@
         <!-- Информация и выбор дня -->
         <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="10">
             <StackPanel>
-                <TextBlock Name="LocationText" 
-                           Text="Пермь" 
-                           FontSize="16" 
-                           Margin="5"/>
+                
 
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <ComboBox Name="Days" 
