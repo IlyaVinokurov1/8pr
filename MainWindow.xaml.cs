@@ -126,7 +126,7 @@ namespace Weather_Vinokurov
                         }
 
                         string sourceInfo = fromCache ? " (из кэша)" : " (актуальные)";
-                        LocationText.Text = $"{currentCity}{sourceInfo}";
+                     
                     }
 
                     Create(0);
@@ -136,7 +136,7 @@ namespace Weather_Vinokurov
             {
                 Dispatcher.Invoke(() =>
                 {
-                    MessageBox.Show($"Ошибка загрузки погоды: {ex.Message}",
+                    MessageBox.Show($"Ошибка: {ex.Message}",
                         "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 });
             }

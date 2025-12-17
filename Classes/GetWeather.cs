@@ -48,11 +48,11 @@ namespace Weather_Vinokurov.Classes
                 if (nextTime.HasValue)
                 {
                     var timeLeft = nextTime.Value - System.DateTime.Now;
-                    throw new System.Exception($"Достигнут лимит запросов. Следующий запрос через {timeLeft.Minutes} минут {timeLeft.Seconds} секунд. Осталось запросов сегодня: {remaining}");
+                    throw new System.Exception($"До запроса {timeLeft.Minutes} минут {timeLeft.Seconds} секунд. Сегодня: {remaining}");
                 }
                 else
                 {
-                    throw new System.Exception($"Достигнут дневной лимит запросов. Осталось запросов: {remaining}");
+                    throw new System.Exception($"Дневной лимит запросов. Осталось {remaining}");
                 }
             }
 

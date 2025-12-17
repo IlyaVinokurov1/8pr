@@ -4,7 +4,6 @@
         Title="Погода" Height="600" Width="800">
 
     <StackPanel>
-        <!-- Панель поиска -->
         <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="10">
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="CityTextBox" 
@@ -20,8 +19,6 @@
                         Margin="5"/>
             </StackPanel>
         </Border>
-
-        <!-- Информация и выбор дня -->
         <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="10">
             <StackPanel>
                 
@@ -40,7 +37,6 @@
             </StackPanel>
         </Border>
 
-        <!-- Заголовки таблицы -->
         <Grid Margin="10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -55,7 +51,6 @@
             <TextBlock Text="Влажность" Grid.Column="3" Margin="5"/>
         </Grid>
 
-        <!-- Прогнозы -->
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Name="parent" Margin="10"/>
         </ScrollViewer>

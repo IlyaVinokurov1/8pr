@@ -15,7 +15,7 @@ namespace Weather_Vinokurov.Classes
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Server=localhost;Port=3307;Database=weather;Uid=root;Pwd=";
+            string connectionString = "Server=localhost;Port=3306;Database=weather;Uid=root;Pwd=";
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
 
